@@ -1,18 +1,16 @@
-const { google } = require('googleapis');
-
 // https://developers.google.com/civic-information/docs/using_api
 // https://developers.google.com/civic-information/docs/v2/representatives/representativeInfoByAddress
 // https://github.com/googleapis/google-api-nodejs-client
+const { google } = require('googleapis');
+const fs = require('fs');
 
-var fs = require('fs');
-
-async function fetch(key) {
+async function repsForAddress(key, address) {
   const civicInfo = google.civicinfo({
     version: 'v2',
     auth: key,
   });
   const res = await civicInfo.representatives.representativeInfoByAddress({
-    address: '3423 Piedmont Rd NE, Atlanta, GA 30305'
+    address: address,
   });
   const { officials, normalizedInput } = res.data;
   console.log(`\n\nReceived representatives for address: ${JSON.stringify(normalizedInput)}\n\n----------\n\n`);
@@ -24,6 +22,6 @@ async function fetch(key) {
 fs.readFile('apikey.txt', 'utf8', function(err, data) {  
   if (err) throw err;
   console.log(data.toString());
-  fetch(data.toString()).catch(console.error);
+  const address = '3423 Piedmont Rd NE, Atlanta, GA 30305';
+  repsForAddress(data.toString(), address).catch(console.error);
 });
-
