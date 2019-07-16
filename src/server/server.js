@@ -5,12 +5,12 @@ import { env, db } from "../db/db"
 
 const start = async () => {
 	try {
-		await db.init()
+		// await db.init()
 
-		if (env === "development") {
-			const { seed } = await import("../db/seed")
-			seed()
-		}
+		// if (env === "development") {
+		// 	const { seed } = await import("../db/seed")
+		// 	seed()
+		// }
 
 		const app = express()
 		app.use(bodyParser.json())
