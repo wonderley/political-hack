@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed');
+
+.userData {
+  font-family: 'Fira Sans Condensed', sans-serif;
+  a {
+    text-decoration: none;
+  }
+  a.email {
+    font-size: 2em;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.userBox {
+  padding: 5px 20px 5px 20px;
+  border-radius: 5px;
+}
+
+.hovered {
+  background-color: #c9b3b3;
+}
+
+ul {
+  padding: 0; /* override default padding */
+  list-style: none; /* don't show bullets */
+}
