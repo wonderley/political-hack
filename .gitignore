@@ -62,3 +62,5 @@ typings/
 
 # Babel output folder
 dist
+
+.DS_Store

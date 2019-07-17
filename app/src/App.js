@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Reps from './Reps';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class App extends React.Component {
       address,
       reps: [],
       error: '',
+      isLoading: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,6 +41,13 @@ class App extends React.Component {
           {this.state.error}
         </div>
       );
+    } else if (this.state.isLoading) {
+      content = (
+        <PulseLoader
+          color={'#c9b3b3'}
+          loading={this.state.isLoading}
+        />
+      )
     } else {
       content = (
         <Reps reps={this.state.reps}/>
@@ -60,7 +69,7 @@ class App extends React.Component {
   }
 
   fetchReps() {
-    debugger;
+    this.setState({ isLoading: true });
     const repsForAddressUrl = encodeURI(`/beta/repsForAddress/${this.state.address}`);
     const that = this;
     fetch(repsForAddressUrl)
@@ -84,12 +93,19 @@ class App extends React.Component {
           }
         }); 
       });
-      that.setState({ reps, error: '' });
+      that.setState({
+        reps,
+        error: '',
+        isLoading: false
+      });
     })
     .catch(err => {
       console.error(err.toString());
-      that.setState({ error: 'No reps were found for that address. Make sure you enter a full address including city and zip code.' });
-    });
+      that.setState({
+        error: 'No reps were found for that address. Make sure you enter a full address including city and zip code.',
+        isLoading: false
+      });
+    })
   }
 }
 
