@@ -1,56 +1,41 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.scss'
-
-const Rep = props => {
-  const email = `mailto:${props.email}`;
-  const company = props.company ? props.company.name : 'none';
-  const city = props.address ? props.address.city : 'none';
-
-  // Additional content is added to the hovered list item
-  const extraContent = props.hover ? (
-    <div className='userData'>
-      <div className='city'>{city}</div>
-      <div className='phone'>{props.phone}</div>
-      <a className='website' href={`http://${props.website}`}>
-        {props.website}
-      </a>
-    </div>
-  ) : null;
-  
-  return (
-    <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
-      <a className='email' href={email}>{props.name}</a>
-      <div className='badge'>{company}</div>
-      {extraContent}
-    </div>
-  );
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.scss';
 
 class Reps extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      // List of fetched people
-      people: [],
+      reps: [],
       // ID of the item most recently hovered
       hoverId: -1,
     };
   }
   
   componentDidMount() {
-    const repsForAddressUrl = 'https://xrgewndjpj.execute-api.us-east-1.amazonaws.com/beta/repsForAddress/3423%20Piedmont%20Rd%20NE,%20Atlanta,%20GA%2030305';
+    const repsForAddressUrl = encodeURI(`/beta/repsForAddress/${this.props.address}`);
     const that = this;
-    fetch(repsForAddressUrl, { mode: 'no-cors'})
+    fetch(repsForAddressUrl)
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Request for url ${repsForAddressUrl} failed with status ${response.status}.`);
       }
       return response.json();
     })
-    .then(reps => {
+    .then(res => {
+      debugger;
       console.log(`URL ${repsForAddressUrl} fetched successfully`);
+      const reps = res.data.officials;
+      // Assign office names to the appropriate reps
+      res.data.offices.forEach(office => {
+        office.officialIndices.forEach(officialIdx => {
+          reps[officialIdx] = {
+            ...reps[officialIdx],
+            officeName: office.name,
+          }
+        }); 
+      });
       that.setState({ reps });
     })
     .catch(err => {
@@ -66,36 +51,45 @@ class Reps extends React.Component {
   render() {
     const hoverId = this.state.hoverId;
     const that = this;
-    const users = this.state.people.map(person => {
+    const reps = this.state.reps.map((rep, i) => {
       return (
-        <li key={person.id} 
-            onMouseEnter={that.onRepMouseEnter.bind(that, person.id)}>
+        <li key={i} 
+            onMouseEnter={that.onRepMouseEnter.bind(that, i)}>
           <Rep
-            name={person.name}
-            email={person.email}
-            company={person.company}
-            address={person.address}
-            phone={person.phone}
-            website={person.website}
-            hover={person.id === hoverId} />
+            name={rep.name}
+            officeName={rep.officeName}
+            party={rep.party}
+            phone={(rep.phones && rep.phones[0]) || ''}
+            hover={i === hoverId} />
         </li>
       );
     });
+    const headerText = this.props.address ? `Representatives at ${this.props.address}` : '';
     return ( 
       <div>
-        <h1>Our team</h1>
+        <h1>{headerText}</h1>
         <ul>
-          {users}
+          {reps}
         </ul>
       </div>
     );
   }
 }
 
+const Rep = props => {
+  return (
+    <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
+      <div className='name'>{props.name}</div>
+      <div className='officeName'>{props.officeName}</div>
+      <div className='party'>{props.party}</div>
+      <div className='phone'>{props.phone}</div>
+    </div>
+  );
+}
 
 
 ReactDOM.render(
-  <Reps />,
+  <Reps address='3423 Piedmont Rd NE, Atlanta, GA 030305'/>,
   document.getElementById('root')
 );
 
