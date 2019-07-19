@@ -6,17 +6,30 @@ const fs = require('fs')
 
 function apiKey() {
   return new Promise((resolve, reject) => {
-    fs.readFile('./google-civic-info/apikey.txt', (err, data) => {  
-      if (err) reject(err)
-      const key = data.toString()
-      resolve(key)
-    })
+    if (process.env.GOOGLE_API_KEY) {
+      resolve(process.env.GOOGLE_API_KEY);
+    } else {
+      fs.readFile('./google-civic-info/apikey.txt', (err, data) => {  
+        if (err || !data) {
+          reject(err || new Error('Failed to fetch data.'));
+          return;
+        }
+        const key = data.toString();
+        resolve(key);
+      });
+    }
   })
 }
 
 async function repsForAddress(req, res) {
-  const address = req.params.address
-  const key = await apiKey()
+  const address = req.params.address;
+  let key;
+  try {
+    key = await apiKey();
+  } catch (e) {
+    console.error(e);
+    return;
+  }
   const civicInfo = google.civicinfo({
     version: 'v2',
     auth: key,
