@@ -6,8 +6,7 @@ class Reps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // ID of the item most recently hovered
-      hoverId: -1,
+      hover: props.reps.map(_ => false),
     };
   }
   
@@ -15,23 +14,38 @@ class Reps extends React.Component {
   }
 
   // Handle a list item being hovered over
-  onRepMouseEnter(hoverId) {
-    this.setState({ hoverId });
+  onRepMouseEnter(hoverIdx) {
+    this.setState(state => {
+      const hover = state.hover.map((hoverItem, idx) => {
+        return hoverItem || idx === hoverIdx;
+      });
+      return { hover };
+    });
   }
-  
+
+  onRepMouseLeave(hoverIdx) {
+    this.setState(state => {
+      const hover = state.hover.map((hoverItem, idx) => {
+        return hoverItem && idx !== hoverIdx;
+      });
+      return { hover };
+    });
+  }
+
   render() {
-    const hoverId = this.state.hoverId;
+    const hover = this.state.hover;
     const that = this;
     const reps = this.props.reps.map((rep, i) => {
       return (
         <li key={i} 
-            onMouseEnter={that.onRepMouseEnter.bind(that, i)}>
+            onMouseEnter={that.onRepMouseEnter.bind(that, i)}
+            onMouseLeave={that.onRepMouseLeave.bind(that, i)}>
           <Rep
             name={rep.name}
             officeName={rep.officeName}
             party={rep.party}
             phone={(rep.phones && rep.phones[0]) || ''}
-            hover={i === hoverId} />
+            hover={hover[i]} />
         </li>
       );
     });
