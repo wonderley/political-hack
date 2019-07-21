@@ -70,7 +70,7 @@ class App extends React.Component {
 
   fetchReps() {
     this.setState({ isLoading: true });
-    const repsForAddressUrl = encodeURI(`/beta/repsForAddress/${this.state.address}`);
+    const repsForAddressUrl = encodeURI(`/repsForAddress/${this.state.address}`);
     const that = this;
     fetch(repsForAddressUrl)
     .then(response => {

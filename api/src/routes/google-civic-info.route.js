@@ -9,7 +9,7 @@ function apiKey() {
     if (process.env.GOOGLE_API_KEY) {
       resolve(process.env.GOOGLE_API_KEY);
     } else {
-      fs.readFile('./google-civic-info/apikey.txt', (err, data) => {  
+      fs.readFile('./keys/google/apikey.txt', (err, data) => {  
         if (err || !data) {
           reject(err || new Error('Failed to fetch data.'));
           return;

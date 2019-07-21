@@ -7,7 +7,7 @@ function apiKey() {
     if (process.env.OPENFEC_API_KEY) {
       resolve(process.env.OPENFEC_API_KEY);
     } else {
-      fs.readFile('./openfec/apikey.txt', (err, data) => {  
+      fs.readFile('./keys/openfec/apikey.txt', (err, data) => {  
         if (err || !data) {
           reject(err || new Error('Failed to fetch data.'));
           return;

@@ -26,7 +26,7 @@ import {
   candidatesForName,
 } from './openfec.route'
 
-import { getLogs } from "./log.route.js"
+//import { getLogs } from "./log.route.js"
 
 export const router = express.Router()
 

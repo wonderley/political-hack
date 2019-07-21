@@ -1,7 +1,6 @@
 import express from "express"
 import { router } from "../routes/index.route"
 import bodyParser from "body-parser"
-import { env, db } from "../db/db"
 
 const start = async () => {
 	try {
@@ -15,9 +14,12 @@ const start = async () => {
 		const app = express()
 		app.use(bodyParser.json())
 
-		app.use("/", router)
+    // Serve the backend API
+    app.use("/", router)
+    // Serve the static frontend assets
+    app.use(express.static('../app/build'))
 
-		const port = 3000
+		const port = 4000
 		app.listen(port, () => console.log(`App listening on port ${port}!`))
 	} catch (error) {
 		console.error("Error: Failed to start app.", error)
