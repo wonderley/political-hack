@@ -37,7 +37,7 @@ async function repsForAddress(req, res) {
   const results = await civicInfo.representatives.representativeInfoByAddress({
     address: address,
   })
-  res.status(200).json(results)
+  res.status(200).json(results.data)
 }
 
 async function test() {
@@ -46,7 +46,7 @@ async function test() {
     status: () => {
       return {
         json: (res) => { 
-          const { officials, normalizedInput } = res.data
+          const { officials, normalizedInput } = res
           console.log(`\n\nReceived representatives for address: ${JSON.stringify(normalizedInput)}\n\n----------\n\n`)
           officials.forEach(official => {
             console.log(`${JSON.stringify(official)}\n\n----------\n\n`)

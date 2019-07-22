@@ -74,7 +74,6 @@ class App extends React.Component {
     const that = this;
     fetch(repsForAddressUrl)
     .then(response => {
-      debugger;
       if (response.status !== 200) {
         throw new Error(`Request for url ${repsForAddressUrl} failed with status ${response.status}.`);
       }
@@ -83,9 +82,9 @@ class App extends React.Component {
     .then(res => {
       debugger;
       console.log(`URL ${repsForAddressUrl} fetched successfully`);
-      const reps = res.data.officials;
+      const reps = res.officials;
       // Assign office names to the appropriate reps
-      res.data.offices.forEach(office => {
+      res.offices.forEach(office => {
         office.officialIndices.forEach(officialIdx => {
           reps[officialIdx] = {
             ...reps[officialIdx],
