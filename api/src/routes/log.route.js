@@ -1,9 +1,9 @@
-import { db } from "../db/db"
+import { db } from '../db/db';
 
 export async function getLogs(req, res) {
   try {
-    const start = new Date(req.query.start) || null
-    const end = new Date(req.query.end) || null
+    const start = new Date(req.query.start) || null;
+    // const end = new Date(req.query.end) || null;
     const results = await db.log.findAll({
       where: {
         EventTime: { $lte: start }
@@ -11,13 +11,13 @@ export async function getLogs(req, res) {
       },
       limit: req.query.limit,
       offset: req.query.offset,
-      order: [["EventTime", "ASC"]]
-    })
-    res.status(200).json(results)
-    return
+      order: [['EventTime', 'ASC']]
+    });
+    res.status(200).json(results);
+    return;
   } catch (error) {
-    console.error(error)
-    res.status(500).send("Error getting logs.")
-    return
+    console.error(error);
+    res.status(500).send('Error getting logs.');
+    return;
   }
 }

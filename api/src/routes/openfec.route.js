@@ -1,6 +1,6 @@
 // https://api.open.fec.gov/developers/
-const fs = require('fs')
-const fetch = require('node-fetch')
+const fs = require('fs');
+const fetch = require('node-fetch');
 
 function apiKey() {
   return new Promise((resolve, reject) => {

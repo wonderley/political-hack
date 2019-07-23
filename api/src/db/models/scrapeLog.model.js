@@ -1,5 +1,5 @@
 export const scrapeLog = (sequelize, Sequelize) => {
-  return sequelize.define("ScrapeLog", {
+  return sequelize.define('ScrapeLog', {
     ScrapeLogId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -13,11 +13,11 @@ export const scrapeLog = (sequelize, Sequelize) => {
       allowNull: true
     },
     RawData: {
-      type: Sequelize.TEXT("long")
+      type: Sequelize.TEXT('long')
     },
     PageURL: {
       type: Sequelize.STRING(1000),
-      values: ["Debug", "Info", "Warn", "Error", "Fatal"]
+      values: ['Debug', 'Info', 'Warn', 'Error', 'Fatal']
     }
-  })
-}
+  });
+};

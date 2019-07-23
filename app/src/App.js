@@ -19,7 +19,7 @@ class App extends React.Component {
 
   handleChange(event) {
     this.setState({
-       address: event.target.value,
+      address: event.target.value,
     });
   }
 
@@ -47,7 +47,7 @@ class App extends React.Component {
           color={'#c9b3b3'}
           loading={this.state.isLoading}
         />
-      )
+      );
     } else {
       content = (
         <Reps reps={this.state.reps}/>
@@ -58,9 +58,9 @@ class App extends React.Component {
         <h1>Representatives at
           <form onSubmit={this.handleSubmit}>
             <input type="text"
-                   onChange={this.handleChange}
-                   defaultValue={this.state.address}
-                   style={{'line-height': '4em'}}/>
+              onChange={this.handleChange}
+              defaultValue={this.state.address}
+              style={{'line-height': '4em'}}/>
           </form>
         </h1>
         {content}
@@ -73,38 +73,37 @@ class App extends React.Component {
     const repsForAddressUrl = encodeURI(`/repsForAddress/${this.state.address}`);
     const that = this;
     fetch(repsForAddressUrl)
-    .then(response => {
-      if (response.status !== 200) {
-        throw new Error(`Request for url ${repsForAddressUrl} failed with status ${response.status}.`);
-      }
-      return response.json();
-    })
-    .then(res => {
-      debugger;
-      console.log(`URL ${repsForAddressUrl} fetched successfully`);
-      const reps = res.officials;
-      // Assign office names to the appropriate reps
-      res.offices.forEach(office => {
-        office.officialIndices.forEach(officialIdx => {
-          reps[officialIdx] = {
-            ...reps[officialIdx],
-            officeName: office.name,
-          }
-        }); 
+      .then(response => {
+        if (response.status !== 200) {
+          throw new Error(`Request for url ${repsForAddressUrl} failed with status ${response.status}.`);
+        }
+        return response.json();
+      })
+      .then(res => {
+        console.log(`URL ${repsForAddressUrl} fetched successfully`);
+        const reps = res.officials;
+        // Assign office names to the appropriate reps
+        res.offices.forEach(office => {
+          office.officialIndices.forEach(officialIdx => {
+            reps[officialIdx] = {
+              ...reps[officialIdx],
+              officeName: office.name,
+            };
+          }); 
+        });
+        that.setState({
+          reps,
+          error: '',
+          isLoading: false
+        });
+      })
+      .catch(err => {
+        console.error(err.toString());
+        that.setState({
+          error: 'No reps were found for that address. Make sure you enter a full address including city and zip code.',
+          isLoading: false
+        });
       });
-      that.setState({
-        reps,
-        error: '',
-        isLoading: false
-      });
-    })
-    .catch(err => {
-      console.error(err.toString());
-      that.setState({
-        error: 'No reps were found for that address. Make sure you enter a full address including city and zip code.',
-        isLoading: false
-      });
-    })
   }
 }
 

@@ -1,5 +1,5 @@
 export const log = (sequelize, Sequelize) => {
-  return sequelize.define("Log", {
+  return sequelize.define('Log', {
     LogId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -10,11 +10,11 @@ export const log = (sequelize, Sequelize) => {
     },
     Level: {
       type: Sequelize.ENUM,
-      values: ["Debug", "Info", "Warn", "Error", "Fatal"]
+      values: ['Debug', 'Info', 'Warn', 'Error', 'Fatal']
     },
     Message: {
       type: Sequelize.STRING(5000),
       allowNull: true
     }
-  })
-}
+  });
+};

@@ -1,12 +1,16 @@
 import React from 'react';
 import './Reps.scss';
+import PropTypes from 'prop-types';
 
+Reps.propTypes = {
+  reps: PropTypes.array.isRequired,
+};
 class Reps extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      hover: props.reps.map(_ => false),
+      hover: props.reps.map(() => false),
     };
   }
   
@@ -38,8 +42,8 @@ class Reps extends React.Component {
     const reps = this.props.reps.map((rep, i) => {
       return (
         <li key={i} 
-            onMouseEnter={that.onRepMouseEnter.bind(that, i)}
-            onMouseLeave={that.onRepMouseLeave.bind(that, i)}>
+          onMouseEnter={that.onRepMouseEnter.bind(that, i)}
+          onMouseLeave={that.onRepMouseLeave.bind(that, i)}>
           <Rep
             name={rep.name}
             officeName={rep.officeName}
@@ -59,7 +63,15 @@ class Reps extends React.Component {
   }
 }
 
-const Rep = props => {
+
+Rep.propTypes = {
+  hover: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  officeName: PropTypes.string.isRequired,
+  party: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+};
+function Rep(props) {
   return (
     <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
       <div className='name'>{props.name}</div>

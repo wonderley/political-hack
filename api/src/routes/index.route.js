@@ -1,4 +1,4 @@
-import express from "express"
+import express from 'express';
 // import {
 //   getAllCandidates,
 //   getCandidate,
@@ -19,16 +19,16 @@ import express from "express"
 // Google Civic Info API
 import {
   repsForAddress,
-} from './google-civic-info.route'
+} from './google-civic-info.route';
 
 // OpenFEC API
 import {
   candidatesForName,
-} from './openfec.route'
+} from './openfec.route';
 
 //import { getLogs } from "./log.route.js"
 
-export const router = express.Router()
+export const router = express.Router();
 
 /* Get all. */
 // router.get("/candidates", getAllCandidates)
@@ -50,5 +50,5 @@ export const router = express.Router()
 // /* Get logs by start/end date. */
 // router.get("/logs", getLogs)
 
-router.get("/repsForAddress/:address", repsForAddress)
-router.get("/candidatesForName/:name", candidatesForName)
+router.get('/repsForAddress/:address', repsForAddress);
+router.get('/candidatesForName/:name', candidatesForName);
