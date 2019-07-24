@@ -2,9 +2,6 @@ import React from 'react';
 import './Reps.scss';
 import PropTypes from 'prop-types';
 
-Reps.propTypes = {
-  reps: PropTypes.array.isRequired,
-};
 class Reps extends React.Component {
 
   constructor(props) {
@@ -62,15 +59,10 @@ class Reps extends React.Component {
     );
   }
 }
-
-
-Rep.propTypes = {
-  hover: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  officeName: PropTypes.string.isRequired,
-  party: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+Reps.propTypes = {
+  reps: PropTypes.array.isRequired,
 };
+
 function Rep(props) {
   return (
     <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
@@ -81,5 +73,12 @@ function Rep(props) {
     </div>
   );
 }
+Rep.propTypes = {
+  hover: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  officeName: PropTypes.string.isRequired,
+  party: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+};
 
 export default Reps;
