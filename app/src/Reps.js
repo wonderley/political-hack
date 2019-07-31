@@ -1,6 +1,7 @@
 import React from 'react';
 import './Reps.scss';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 
 class Reps extends React.Component {
 
@@ -33,6 +34,19 @@ class Reps extends React.Component {
     });
   }
 
+  onRepMouseDown(idx) {
+    this.setState({ selectedRep: this.props.reps[idx] });
+  }
+
+  renderRedirect() {
+    if (this.state.selectedRep) {
+      return <Redirect to={{
+        pathname: '/rep',
+        state: this.state.selectedRep,
+      }}/>;
+    }
+  }
+
   render() {
     const hover = this.state.hover;
     const that = this;
@@ -40,7 +54,8 @@ class Reps extends React.Component {
       return (
         <li key={i} 
           onMouseEnter={that.onRepMouseEnter.bind(that, i)}
-          onMouseLeave={that.onRepMouseLeave.bind(that, i)}>
+          onMouseLeave={that.onRepMouseLeave.bind(that, i)}
+          onMouseDown={that.onRepMouseDown.bind(that, i)}>
           <Rep
             name={rep.name}
             officeName={rep.officeName}
@@ -52,6 +67,7 @@ class Reps extends React.Component {
     });
     return ( 
       <div>
+        {this.renderRedirect()}
         <ul>
           {reps}
         </ul>
