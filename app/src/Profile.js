@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 
 class Profile extends React.Component {
   render() {
-    const providedState = this.props.location.state;
+    const repData = this.props.location.state;
     return (
       <div>
-        Hello Profile! Props: {JSON.stringify(providedState)}
+        Hello Profile! Props: {JSON.stringify(repData)}
+        <img src={repData.photoUrl} alt="" style={{
+          'max-height': '50%',
+          'max-width': '50%'
+        }}/>
       </div>
     );
 

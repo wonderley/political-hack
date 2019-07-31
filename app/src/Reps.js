@@ -40,7 +40,7 @@ class Reps extends React.Component {
 
   renderRedirect() {
     if (this.state.selectedRep) {
-      return <Redirect to={{
+      return <Redirect push to={{
         pathname: '/rep',
         state: this.state.selectedRep,
       }}/>;

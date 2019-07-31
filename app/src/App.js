@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RepSearch from './RepSearch';
 import Profile from './Profile';
 
-// use setState to pass the data to pass on to the profile component
-
 class AppRouter extends React.Component {
   constructor(props) {
     super(props);
