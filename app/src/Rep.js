@@ -4,13 +4,26 @@ import PropTypes from 'prop-types';
 class Rep extends React.Component {
   render() {
     const repData = this.props.location.state;
+    const { name, address, party, phones, urls,
+            photoUrl, emails, channels, officeName } = repData;
     return (
-      <div>
-        Props: {JSON.stringify(repData)}
-        <img src={repData.photoUrl} alt="" style={{
-          'max-height': '50%',
-          'max-width': '50%'
+      <div style={{
+        display: 'flex',
+        flexDirection: 'horizontal',
+        padding: '15px',
+      }}>
+        <img src={photoUrl} alt="" style={{
+          'max-height': '400px',
+          'max-width': '50%',
+          paddingRight: '15px',
         }}/>
+        <div style={{
+          flexDirection: 'vertical',
+        }}>
+          <div>{`Name: ${name}`}</div>
+          <div>{`Party: ${party || 'Unknown'}`}</div>
+          <div>Props: {JSON.stringify(repData)}</div>
+        </div>
       </div>
     );
 
