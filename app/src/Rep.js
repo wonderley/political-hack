@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Profile extends React.Component {
+class Rep extends React.Component {
   render() {
     const repData = this.props.location.state;
     return (
       <div>
-        Hello Profile! Props: {JSON.stringify(repData)}
+        Props: {JSON.stringify(repData)}
         <img src={repData.photoUrl} alt="" style={{
           'max-height': '50%',
           'max-width': '50%'
@@ -51,8 +51,8 @@ class Profile extends React.Component {
   }
 }
 
-Profile.propTypes = {
+Rep.propTypes = {
   location: PropTypes.object,
 };
 
-export default Profile;
+export default Rep;

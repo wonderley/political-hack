@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import RepSearch from './RepSearch';
-import Profile from './Profile';
+import Rep from './Rep';
 
 class AppRouter extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class AppRouter extends React.Component {
       <Router>
         <div>
           <Route path="/" exact component={RepSearch}/>
-          <Route path="/rep" exact component={Profile}/>
+          <Route path="/rep/:name" component={Rep}/>
         </div>
       </Router>
     );

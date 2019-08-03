@@ -1,6 +1,6 @@
 import React from 'react';
 import './RepSearch.css';
-import Reps from './Reps';
+import RepList from './RepList';
 import PulseLoader from 'react-spinners/PulseLoader';
 
 class RepSearch extends React.Component {
@@ -50,7 +50,7 @@ class RepSearch extends React.Component {
       );
     } else {
       content = (
-        <Reps reps={this.state.reps}/>
+        <RepList reps={this.state.reps}/>
       );
     }
     return (

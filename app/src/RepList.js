@@ -1,9 +1,9 @@
 import React from 'react';
-import './Reps.scss';
+import './RepList.scss';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 
-class Reps extends React.Component {
+class RepList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -41,7 +41,7 @@ class Reps extends React.Component {
   renderRedirect() {
     if (this.state.selectedRep) {
       return <Redirect push to={{
-        pathname: '/rep',
+        pathname: `/rep/${this.state.selectedRep.name}`,
         state: this.state.selectedRep,
       }}/>;
     }
@@ -56,7 +56,7 @@ class Reps extends React.Component {
           onMouseEnter={that.onRepMouseEnter.bind(that, i)}
           onMouseLeave={that.onRepMouseLeave.bind(that, i)}
           onMouseDown={that.onRepMouseDown.bind(that, i)}>
-          <Rep
+          <RepItem
             name={rep.name}
             officeName={rep.officeName}
             party={rep.party}
@@ -75,11 +75,11 @@ class Reps extends React.Component {
     );
   }
 }
-Reps.propTypes = {
+RepList.propTypes = {
   reps: PropTypes.array.isRequired,
 };
 
-function Rep(props) {
+function RepItem(props) {
   return (
     <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
       <div className='name'>{props.name}</div>
@@ -89,12 +89,12 @@ function Rep(props) {
     </div>
   );
 }
-Rep.propTypes = {
+RepItem.propTypes = {
   hover: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   officeName: PropTypes.string.isRequired,
-  party: PropTypes.string.isRequired,
+  party: PropTypes.string,
   phone: PropTypes.string.isRequired,
 };
 
-export default Reps;
+export default RepList;
