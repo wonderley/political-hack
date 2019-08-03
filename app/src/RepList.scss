@@ -1,21 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans+Condensed');
 
-.userData {
+.repItem {
   font-family: 'Fira Sans Condensed', sans-serif;
-  a {
-    text-decoration: none;
-  }
-  a.email {
-    font-size: 2em;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-}
-
-.userBox {
   padding: 5px 20px 5px 20px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .hovered {

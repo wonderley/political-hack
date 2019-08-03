@@ -81,7 +81,7 @@ RepList.propTypes = {
 
 function RepItem(props) {
   return (
-    <div className={`userData userBox ${props.hover ? 'hovered' : ''}`}>
+    <div className={`repItem ${props.hover ? 'hovered' : ''}`}>
       <div className='name'>{props.name}</div>
       <div className='officeName'>{props.officeName}</div>
       <div className='party'>{props.party}</div>
